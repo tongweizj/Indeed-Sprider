@@ -1,0 +1,11 @@
+version: '3'
+services:
+  ### node app container #########################################
+  node:
+    image: node:lts
+    container_name: web_jobSprider
+    volumes:
+      - ./sprider:/workspace/sprider
+    ports:
+      - "3000:3000"
+    tty: true

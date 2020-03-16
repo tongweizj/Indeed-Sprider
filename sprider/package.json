@@ -1,0 +1,20 @@
+{
+  "name": "sprider",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "cheerio": "^1.0.0-rc.3",
+    "commander": "^5.0.0",
+    "progress": "^2.0.3",
+    "sync-request": "^6.1.0",
+    "format-json-pretty": "^1.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
