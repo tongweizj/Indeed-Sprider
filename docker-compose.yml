@@ -1,4 +1,4 @@
-version: '3'
+version: '3.1'
 services:
   ### node app container #########################################
   node:
@@ -9,3 +9,20 @@ services:
     ports:
       - "3000:3000"
     tty: true
+
+  ### Mysql container #########################################
+  mysql:
+    image: mysql:5.7
+    container_name: web_mysql
+    ports:
+      - "3305:3306"
+    volumes:
+      - ./services/mysql/mysql.cnf:/etc/mysql/conf.d/mysql.cnf:ro
+      - ./services/mysql/data/mysql:/var/lib/mysql/:rw
+    restart: always
+    privileged: true
+    networks:
+      - default
+    environment:
+      MYSQL_ROOT_PASSWORD: "123456"
+      TZ: "America/Toronto"

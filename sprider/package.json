@@ -7,9 +7,10 @@
     "axios": "^0.19.2",
     "cheerio": "^1.0.0-rc.3",
     "commander": "^5.0.0",
+    "format-json-pretty": "^1.0.1",
+    "mysql": "^2.18.1",
     "progress": "^2.0.3",
-    "sync-request": "^6.1.0",
-    "format-json-pretty": "^1.0.1"
+    "sync-request": "^6.1.0"
   },
   "devDependencies": {},
   "scripts": {
