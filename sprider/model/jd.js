@@ -20,25 +20,24 @@ mongoose.connection.on("open", function () {
     console.log("database connnecting succeeded");
 });
 
-const articleModel = {
-    sid: String,
+const jdModel = {
+    id: String,
     title: String,
-    pubTime: String,
-    label: String,
-    source: String,
-    hometext: String,
     summary: String,
-    content: String,
-    csrf: String,
-    sn: String,
-    thumb: String,
-    author: String,
-    commentCount: Number,
+    url: String,
+    company: String,
+    location: String,
+    postDate: String,
+    salary: String,
+    isEasyApply: String,
+    content: String
 };
 
 let schema = mongoose.Schema;
-let articleMap = new schema(articleModel);
-articleMap.plugin(mongoosePaginate);
-let articleDbModel = mongoose.model('Article', articleMap);
+let jdMap = new schema(jdModel);
+// 以url为索引
+jdMap.index({ url: 1 }, { unique: true, background: true, dropDups: true })
+jdMap.plugin(mongoosePaginate);
+let jdDbModel = mongoose.model('Jds', jdMap);
 
-module.exports = { articleModel, articleDbModel };
+module.exports = { jdModel, jdDbModel };

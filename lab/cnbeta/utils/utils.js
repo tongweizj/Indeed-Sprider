@@ -3,7 +3,7 @@ const logger = require('../config/log');
 const fs = require('fs');
 
 /**
- *
+ * list 页面URL拼写
  * @param listBaseUrl
  * @param totalPage
  * @returns {Array}

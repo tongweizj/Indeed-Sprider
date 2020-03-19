@@ -7,26 +7,27 @@ services:
     volumes:
       - ./sprider:/workspace/sprider
       - ./lab:/workspace/lab
+      - ./web:/workspace/web
     ports:
       - "3000:3000"
     tty: true
 
   ### Mysql container #########################################
-  mysql:
-    image: mysql:5.7
-    container_name: db_mysql
-    ports:
-      - "3305:3306"
-    volumes:
-      - ./services/mysql/mysql.cnf:/etc/mysql/conf.d/mysql.cnf:ro
-      - ./services/mysql/data/mysql:/var/lib/mysql/:rw
-    # restart: always
-    privileged: true
-    networks:
-      - default
-    environment:
-      MYSQL_ROOT_PASSWORD: "123456"
-      TZ: "America/Toronto"
+  # mysql:
+  #   image: mysql:5.7
+  #   container_name: db_mysql
+  #   ports:
+  #     - "3305:3306"
+  #   volumes:
+  #     - ./services/mysql/mysql.cnf:/etc/mysql/conf.d/mysql.cnf:ro
+  #     - ./services/mysql/data/mysql:/var/lib/mysql/:rw
+  #   # restart: always
+  #   privileged: true
+  #   networks:
+  #     - default
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: "123456"
+  #     TZ: "America/Toronto"
 
   ### mongo container #########################################
   mongo:

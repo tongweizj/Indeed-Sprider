@@ -1,5 +1,3 @@
-
-
 const articleListInit = require('./article-list');
 const articleContentInit = require('./content');
 const logger = require('../config/log');

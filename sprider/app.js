@@ -1,64 +1,81 @@
-const Indeed = require('./utils/getindeed')
-const jsonUtils = require('./utils/jsonUtils')
-const axios = require('axios')
+const scrapList = require('./indeed/scrapList')
+const dbHelper = require('./utils/dbHelper')
+const { jdModel, jdDbModel } = require('./model/jd');
+const logger = require('./config/log');
+// var express = require('express')
+// var app = express()
+
+const queryOptions = {
+  host: 'ca.indeed.com',
+  query: 'Machine Learning Engineer',
+  city: 'Toronto, ON',
+  radius: '25',
+  level: 'entry_level',
+  jobType: 'fulltime',
+  maxAge: '7',
+  sort: 'date',
+  limit: 10
+};
+
+scrapList.query(queryOptions).then(res => {
+    console.log(res); // An array of Job objects
+    saveDB(res)
+});
 
 
-async function getJds2 (jdList) {
-  let jdArr = []
-  num = 1
-  
-  await jdList.forEach( function (url) {
-    indeed.getJdPage(url,function (jddata) {
-      console.log('2-4')
-      jddata.id=num
-      // console.log(jddata)
-      jdArr.push(jddata)
-      // console.log(jdArr)
-      num ++ 
-  })
+/**
+ * 将文章列表存入数据库
+ * @param result
+ * @param callback
+ * @returns {Promise.<void>}
+ */
+const saveDB = async(result) => {
+  //console.log(result);
+  let flag = await dbHelper.insertCollection(jdDbModel, result).catch(function (err){
+      logger.error('data insert falied');
+  });
+  if (!flag) {
+      logger.error('news list save failed');
+  } else {
+      logger.info('list saved！total：' + result.length);
+  }
+};
 
-  })
-  console.log('3')
-  console.log(jdArr)
-  jdData = {}
-  jdData.data = jdArr
-  jdData.total = jdArr.length
- 
-  jsonUtils.writeJson(jdData,'test2.json')
-}
 
-const getJds = async (jdList) => {
-  let jdArr = []
-  num = 1
-  
-  await jdList.forEach( async function (url) {
-    const html = await axios.get(url)
-    item = indeed.getJdPage(html.data)
-    item.id=num
-    console.log(item)
-    jdArr.push(item)
-    console.log(jdArr)
-    num ++
-  })
-  console.log('3')
-  console.log(jdArr)
-  jdData = {}
-  jdData.data = jdArr
-  jdData.total = jdArr.length
- 
-  jsonUtils.writeJson(jdData,'test2.json')
-}
 
-const getJd = async (url) => {
-  jdInfo = await indeed.getJdPage(url)
-  // console.log(jdInfo)
-  jsonUtils.writeJson(jdInfo,'test.json')
-  return jdInfo
-}
+// function getQuery(query) {
+//   const queryOptions = {
+//     host: 'ca.indeed.com',
+//     query: `${query}`,
+//     city: 'Toronto, ON',
+//     radius: '25',
+//     level: '',
+//     jobType: 'fulltime',
+//     maxAge: '7',
+//     sort: 'relevance',
+//     limit: 100
+//   };
+//   return queryOptions;
+// }
+// app.get('/:query', async function (req, res) {
+//   try {
+//     let {
+//       query
+//     } = req.params;
+//     query = query.replace(/\-/g, " ");
+//     console.log("buscando categoria:", query);
+//     const queryOptions = await (getQuery(query))
+//     const lol = await scrapList.query(queryOptions);
+//     res.json(lol);
+//   } catch (e) {
+//     console.log(e)
+//   }
 
-// getJd('https://www.indeed.ca/viewjob?jk=4b17f48a4a886bf3')
-// jdList = ['https://www.indeed.ca/viewjob?jk=4b17f48a4a886bf3','https://www.indeed.ca/viewjob?cmp=Nutrition-Hacks&t=Full+Stack+Web+Developer&jk=092445ae0e9b1ccf&sjdu=vQIlM60yK_PwYat7ToXhk7CMTN6TBlbqwSiHGWKXUH33jxFVPFnsrKENKXHcxUhVDBDso4u0UypkcJaj0RXYQ8rQjnZq4bWMnpvu1RAoEAA&tk=1e3fn2vf434pi000&adid=259230501&pub=4a1b367933fd867b19b072952f68dceb&vjs=3']
-jdList = ['https://www.indeed.ca/viewjob?jk=4b17f48a4a886bf3']
-Indeed.getJdsAll(jdList,jdArr => {
-  console.log(jdArr)
-})
+// })
+
+// const port = process.env.PORT || 3000;
+// const ip = process.env.IP;
+
+// app.listen(port, ip, function () {
+//   console.log('Example app listening on port 3000!');
+// });

@@ -1,0 +1,28 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "A simple example of a blog using Node.js, MongoDB, Mongoose, Sass and Express.  It is based off of the excellent tutorial at http://howtonode.org/express-mongodb.  The code has been modified to use npm (instead of kiwi), Mongoose and EJS, and runs on newer versions of node.",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon ./start.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "express-validator": "^6.4.0",
+    "http-auth": "^4.1.2",
+    "mongoose": "^5.9.5",
+    "pug": "^2.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}

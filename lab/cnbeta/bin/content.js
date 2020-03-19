@@ -132,7 +132,7 @@ const downloadImgs = (list) => {
             if (item.indexOf(host) === -1) return;
             let thumb_url = item.replace(host, '');
             item.thumb = thumb_url;
-            if (!fs.exists(thumb_url)) {
+            if (!fs.existsSync(thumb_url)) {
                 mkDirs(basepath + thumb_url.substring(0, thumb_url.lastIndexOf('/')), () => {
                     // request
                     //     .get({

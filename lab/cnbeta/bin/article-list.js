@@ -1,4 +1,3 @@
-
 /**
  * 根据分页接口获取文章列表，这些列表只包含新闻的基本信息（包括标题、摘要、发布时间等，但没有详情内容）
  * 在下一阶段，将根据新闻列表逐条抓取文章详情内容
@@ -104,12 +103,12 @@ const downloadThumbAndSave = (list, resolve) => {
         resolve(false);
     } else {
         try {
-            async.eachSeries(list, (item, callback) => {
+            async.eachSeries(list, function (item, callback)  {
                 // let num = Math.random() * 500 + 500;
                 // sleep(num);
                 let thumb_url = item.thumb.replace(host, '');
                 item.thumb = thumb_url;
-                if (!fs.exists(thumb_url)) {
+                if (!fs.existsSync(thumb_url)) {
                     mkDirs(basepath + thumb_url.substring(0, thumb_url.lastIndexOf('/')), () => {
                         // console.log(path.join(basepath, thumb_url));
                         // request
