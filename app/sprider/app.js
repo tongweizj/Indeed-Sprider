@@ -1,5 +1,5 @@
 const scrapList = require('./indeed/scrapList')
-const dbHelper = require('./utils/dbHelper')
+const dbHelper = require('./utils/dbhelper')
 const { jdModel, jdDbModel } = require('./model/jd');
 const logger = require('./config/log');
 // var express = require('express')
