@@ -10,7 +10,8 @@ const jsSchema = new mongoose.Schema({
   postDate: String,
   salary: String,
   isEasyApply: String,
-  content: String
+  content: String,
+  jobTitle: String
 });
 
 module.exports = mongoose.model('Jds', jsSchema);

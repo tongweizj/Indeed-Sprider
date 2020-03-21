@@ -13,7 +13,7 @@ const basic = auth.basic({
 });
 
 router.get('/', (req, res) => {
-  Jds.find()
+  Jds.find().sort({postDate:-1})
     .then((jds) => {
       // console.log(jds)
       res.render('index', { title: 'Listing jds',path: '/', jds });
