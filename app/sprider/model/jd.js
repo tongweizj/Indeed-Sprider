@@ -1,43 +1,21 @@
-
-
-/**
- * 文章相关
- * @type {*}
- */
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
-const config = require('../config/dbconf');
-mongoose.Promise = global.Promise;
 
-var db=mongoose.connect(`mongodb://cnbetaAdmin:123456@${config.originIp}:${config.localPort}/${config.db.cnbeta}`);
-// var db = mongoose.connect(`mongodb://${config.localUrl}:${config.localPort}/${config.db.articlelist}`);
-
-mongoose.connection.on("error", function (error) {
-    console.log("database connnecting failed：" + error);
-});
-
-mongoose.connection.on("open", function () {
-    console.log("database connnecting succeeded");
-});
-
-const jdModel = {
+const jdModel = mongoose.Schema({
     id: String,
     title: String,
     summary: String,
-    url: String,
+    url: {type:String,unique: true},
     company: String,
     location: String,
     postDate: String,
     salary: String,
     isEasyApply: String,
     content: String
-};
+})
 
-let schema = mongoose.Schema;
-let jdMap = new schema(jdModel);
 // 以url为索引
-jdMap.index({ url: 1 }, { unique: true, background: true, dropDups: true })
-jdMap.plugin(mongoosePaginate);
-let jdDbModel = mongoose.model('Jds', jdMap);
+jdModel.index({ url: 1 }, { unique: true, background: true, dropDups: true })
+jdModel.plugin(mongoosePaginate);
 
-module.exports = { jdModel, jdDbModel };
+module.exports = mongoose.model('Jds', jdModel)

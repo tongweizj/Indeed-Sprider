@@ -1,25 +1,25 @@
 version: '3.1'
 services:
  ### nginx container #########################################
-nginx:
-  image: nginx:stable-alpine
-  container_name: mv_nginx
-  volumes:
-   - ./services/nginx/conf.d:/etc/nginx/conf.d
-   - ./services/nginx/nginx.conf:/etc/nginx/nginx.conf
-  ports:
-   - "80:80"
-  environment:
-   - NGINX_PORT=80
+  nginx:
+    image: nginx:stable-alpine
+    container_name: mv_nginx
+    volumes:
+    - ./services/nginx/conf.d:/etc/nginx/conf.d
+    - ./services/nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+    - "80:80"
+    environment:
+    - NGINX_PORT=80
   
   ### node app container #########################################
   node:
     image: node:lts
     container_name: web_jobSprider
     volumes:
-      - ./sprider:/workspace/sprider
-      - ./lab:/workspace/lab
-      - ./web:/workspace/web
+      - ./app/sprider:/workspace/sprider
+      - ./app/lab:/workspace/lab
+      - ./app/web:/workspace/web
     ports:
       - "3000:3000"
     tty: true

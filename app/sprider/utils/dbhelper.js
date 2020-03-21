@@ -1,4 +1,4 @@
-const {articleModel, articleDbModel} = require('../model/jd');
+const articleDbModel= require('../model/jd');
 // const logger = require('../config/log');
 
 class dbHelper {
@@ -17,7 +17,7 @@ class dbHelper {
         // if (!res) {
         //     flag = false;
         // }
-        await Model.collection.insertMany(insertList)
+        await Model.collection.insertMany(insertList, { ordered: false })
         .then()
         .catch(err => { //捕捉插入重复抛出的异常
             console.log(err.toString())

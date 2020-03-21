@@ -1,5 +1,6 @@
 const request = require("request");
 const cheerio = require("cheerio");
+const moment = require('moment') // 修改
 
 module.exports.query = function(queryObject) {
   const q = new Query(queryObject);
@@ -121,10 +122,8 @@ function parseJobList(body, host, excludeSponsored) {
         .text()
         .trim();
 
-      const postDate = job
-        .find(".date")
-        .text()
-        .trim();
+      let dateStr = job.find(".date").text().trim().replace(/[^0-9]/ig,"") * 1; //修改
+      const postDate = moment().subtract(dateStr, 'days').format('L'); //修改
 
       const salary = job
         .find(".salary.no-wrap")

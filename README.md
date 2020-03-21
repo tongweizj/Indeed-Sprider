@@ -6,7 +6,8 @@
 ├── README.md
 ├── app
 │   ├── sprider             --- indeed 蜘蛛，采集职位
-│   └── web                 --- 职位网站
+│   ├── web                 --- 职位网站
+│   └── API                 --- 对外提供API
 ├── docker-compose.yml      --- docker管理
 ├── services                --- docker关联文件夹
 │   └── mysql 

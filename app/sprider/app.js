@@ -1,24 +1,37 @@
 const scrapList = require('./indeed/scrapList')
+
+const mongoose = require('mongoose');
 const dbHelper = require('./utils/dbhelper')
-const { jdModel, jdDbModel } = require('./model/jd');
-const logger = require('./config/log');
-// var express = require('express')
-// var app = express()
+const jdModel = require('./model/jd');
+const url  = 'mongodb://cnbetaAdmin:123456@mongo:27017/cnbeta'
+mongoose.Promise = global.Promise;
+mongoose.connect(url, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+mongoose.connection
+.on('open', () => {
+console.log('Mongoose connection open');
+})
+.on('error', (err) => {
+console.log(`Connection error: ${err.message}`);
+});
+
 
 const queryOptions = {
   host: 'ca.indeed.com',
   query: 'Machine Learning Engineer',
   city: 'Toronto, ON',
-  radius: '25',
-  level: 'entry_level',
+  radius: '30',
+  level: '',
   jobType: 'fulltime',
   maxAge: '7',
   sort: 'date',
-  limit: 10
+  limit: 100
 };
 
 scrapList.query(queryOptions).then(res => {
-    console.log(res); // An array of Job objects
+    console.log(res.length); // An array of Job objects
     saveDB(res)
 });
 
@@ -31,51 +44,12 @@ scrapList.query(queryOptions).then(res => {
  */
 const saveDB = async(result) => {
   //console.log(result);
-  let flag = await dbHelper.insertCollection(jdDbModel, result).catch(function (err){
-      logger.error('data insert falied');
+  let flag = await dbHelper.insertCollection(jdModel, result).catch(function (err){
+    console.log('data insert falied');
   });
   if (!flag) {
-      logger.error('news list save failed');
+    console.log('news list save failed');
   } else {
-      logger.info('list saved！total：' + result.length);
+    console.log('list saved！total：' + result.length);
   }
 };
-
-
-
-// function getQuery(query) {
-//   const queryOptions = {
-//     host: 'ca.indeed.com',
-//     query: `${query}`,
-//     city: 'Toronto, ON',
-//     radius: '25',
-//     level: '',
-//     jobType: 'fulltime',
-//     maxAge: '7',
-//     sort: 'relevance',
-//     limit: 100
-//   };
-//   return queryOptions;
-// }
-// app.get('/:query', async function (req, res) {
-//   try {
-//     let {
-//       query
-//     } = req.params;
-//     query = query.replace(/\-/g, " ");
-//     console.log("buscando categoria:", query);
-//     const queryOptions = await (getQuery(query))
-//     const lol = await scrapList.query(queryOptions);
-//     res.json(lol);
-//   } catch (e) {
-//     console.log(e)
-//   }
-
-// })
-
-// const port = process.env.PORT || 3000;
-// const ip = process.env.IP;
-
-// app.listen(port, ip, function () {
-//   console.log('Example app listening on port 3000!');
-// });
