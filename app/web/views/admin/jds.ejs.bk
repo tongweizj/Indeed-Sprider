@@ -1,0 +1,96 @@
+<%- include('../includes/head.ejs') %>
+<!-- <link rel="stylesheet" href="/css/product.css"> -->
+</head>
+
+<body>
+  <%- include('./nav.ejs') %>
+
+  <main role="main" class="container">
+    <div class="row">
+      <div class="col-md-8 blog-main">
+        <div class="mp-nav mb-3">
+          <ul class="nav nav-pills">
+            <li class="nav-item">
+              <a class="nav-link <%= jobTitle === 'Machine Learning Engineer' ? 'active' : '' %>" href="/admin/mp/jd/1">Machine Learning</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link <%= jobTitle === 'Full Stack Developer' ? 'active' : '' %>" href="/admin/mp/jd/2">Full Stack</a>
+            </li>
+          </ul>
+        </div>
+        <div class="js-doc bg-white">
+          <div class="card">
+            <div class="card-header">
+              <%= jobTitle %>职位信息
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">今日职位推荐</h5>
+              <p class="card-text">
+
+                <% if (jds.length > 0) { %>
+                <% for (let jd of jds) { %>
+                <table class="table row mx-0">
+                  <thead class="w-100">
+                    <tr class="row mx-0">
+                      <h5>#<%= jd.index %> <%= jd.title %></h5>
+                    </tr>
+                  </thead>
+                  <tbody class="w-100">
+                    <tr class="row mx-0">
+                      <th class="col-2"><small class="text-muted">公司</small></th>
+                      <td class="col-10"><%= jd.company %> (<%= jd.location %>)</td>
+                    </tr>
+                    <tr class="row mx-0">
+                      <th class="col-2"><small class="text-muted">职位</small></th>
+                      <td class="col-10"><%= jd.title %></td>
+                    </tr>
+                    <tr class="row mx-0">
+                      <th class="col-2"><small class="text-muted">申请地址</small></th>
+                      <td class="col-10"><%= jd.url %></td>
+                    </tr>
+                    <tr class="row mx-0">
+                      <th class="col-2"><small class="text-muted">职位简介</small></th>
+                      <td class="col-10"><%= jd.summary %></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <!-- /.jd-post -->
+                <% } %>
+                <% } else { %>
+                <h1>No JD Found!</h1>
+                <% } %>
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /.jd-main -->
+
+      <aside class="col-md-4 jd-sidebar">
+        <div class="p-4 mb-3 bg-white rounded">
+          <h4 class="sidebar-box-title">right</h4>
+          <p class="mb-0">我们这这个区域，可以放我们的课程广告.</p>
+        </div><!-- /.top-ad -->
+
+        <div class="sidebar-ad2 mb-3 bg-white rounded">
+          <img src="/img/sidebar-ad.gif">
+        </div><!-- /.top-ad2 -->
+
+        <div class="p-4 mb-3 bg-white rounded">
+          <h5 class="sidebar-box-title">right</h4>
+            <p class="mb-0">我们这这个区域，可以放我们的课程广告.</p>
+        </div><!-- /.top-download -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="sidebar-box-title">免费课程分享</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Button</a>
+          </div>
+        </div>
+      </aside><!-- /.jd-sidebar -->
+
+    </div><!-- /.row -->
+
+  </main>
+
+  <%- include('../includes/end.ejs') %>

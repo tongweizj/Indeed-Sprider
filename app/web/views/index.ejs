@@ -8,12 +8,26 @@
   <main role="main" class="container">
     <div class="row">
       <div class="col-md-8 blog-main">
-        <h3 class="jobs-title">Jobs </h3>
+        <div class="mp-nav mb-3">
+          <span class="jobs-title">Jobs </span>
+          <ul class="nav float-right">
+            <li class="nav-item">
+              <a class="nav-link <%= jobTitle === 'All' ? 'active' : '' %>" href="#">全部</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link <%= jobTitle === 'ML' ? 'active' : '' %>" href="/jds/Machine_Learning_Engineer">Machine Learning</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link <%= jobTitle === 'FS' ? 'active' : '' %>" href="/jds/Full_Stack_Developer">Full Stack</a>
+            </li>
+          </ul>
+        </div>
+        
         <div class="js-list bg-white">
           <div class="list-group jd-group">
             <% if (jds.length > 0) { %>
               <% for (let jd of jds) { %>
-                <a href="#" class="jd-card jd-group-item ">
+                <a href="<%= jd.url %>" class="jd-card jd-group-item " target="_blank">
                   <div class="row no-gutters">
                     <div class="col-md-2">
                       <img src="/img/jd-company-logo.png" class="card-img jd-company-logo" alt="jd-company-logo">

@@ -1,5 +1,8 @@
 const express = require('express');
-const { check, validationResult } = require('express-validator');
+const {
+  check,
+  validationResult
+} = require('express-validator');
 const router = express.Router();
 
 const mongoose = require('mongoose');
@@ -13,25 +16,76 @@ const basic = auth.basic({
 });
 
 router.get('/', (req, res) => {
-  Jds.find().sort({postDate:-1})
+  Jds.find().sort({
+      postDate: -1
+    })
     .then((jds) => {
       // console.log(jds)
-      res.render('index', { title: 'Listing jds',path: '/', jds });
+      res.render('index', {
+        title: 'Home | uWork.ai',
+        path: '/',
+        jobTitle:'All',
+        jds
+      });
     })
-    .catch(() => { res.send('Sorry! Something went wrong.'); });
+    .catch(() => {
+      res.send('Sorry! Something went wrong.');
+    });
+});
+
+router.get('/jds/Machine_Learning_Engineer', (req, res) => {
+  Jds.find({jobTitle:'Machine Learning Engineer'}).sort({
+      postDate: -1
+    })
+    .then((jds) => {
+      // console.log(jds)
+      res.render('index', {
+        title: 'Home | uWork.ai',
+        path: '/',
+        jobTitle:'ML',
+        jds
+      });
+    })
+    .catch(() => {
+      res.send('Sorry! Something went wrong.');
+    });
+});
+
+router.get('/jds/Full_Stack_Developer', (req, res) => {
+  Jds.find({jobTitle:'Full Stack Developer'}).sort({
+      postDate: -1
+    })
+    .then((jds) => {
+      // console.log(jds)
+      res.render('index', {
+        title: 'Home | uWork.ai',
+        path: '/',
+        jobTitle:'FS',
+        jds
+      });
+    })
+    .catch(() => {
+      res.send('Sorry! Something went wrong.');
+    });
 });
 
 router.get('/regrist', (req, res) => {
-  res.render('form', { title: 'Registration form' });
+  res.render('form', {
+    title: 'Registration form'
+  });
 });
 
-router.post('/regrist', 
+router.post('/regrist',
   [
     check('name')
-    .isLength({ min: 1 })
+    .isLength({
+      min: 1
+    })
     .withMessage('Please enter a name'),
     check('email')
-    .isLength({ min: 1 })
+    .isLength({
+      min: 1
+    })
     .withMessage('Please enter an email'),
   ],
   (req, res) => {
@@ -39,11 +93,13 @@ router.post('/regrist',
     if (errors.isEmpty()) {
       const registration = new Registration(req.body);
       registration.save()
-      .then(() => { res.send('Thank you for your registration!'); })
-      .catch((err) => {
-        console.log(err);
-        res.send('Sorry! Something went wrong.');
-      });
+        .then(() => {
+          res.send('Thank you for your registration!');
+        })
+        .catch((err) => {
+          console.log(err);
+          res.send('Sorry! Something went wrong.');
+        });
     } else {
       res.render('form', {
         title: 'Registration form',
@@ -56,9 +112,14 @@ router.post('/regrist',
 router.get('/registrations', basic.check((req, res) => {
   Registration.find()
     .then((registrations) => {
-      res.render('index', { title: 'Listing registrations', registrations });
+      res.render('index', {
+        title: 'Listing registrations',
+        registrations
+      });
     })
-    .catch(() => { res.send('Sorry! Something went wrong.'); });
+    .catch(() => {
+      res.send('Sorry! Something went wrong.');
+    });
 }));
 
 
