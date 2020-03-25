@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="653px" height="150px" viewBox="0 0 653 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="340px" height="55px" viewBox="0 0 340 55" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 61 (89581) - https://sketch.com -->
-    <title>uworkLogo-2</title>
+    <title>logo</title>
     <desc>Created with Sketch.</desc>
-    <g id="uworkLogo-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="u">
-            <circle id="椭圆形" fill="#DA552F" cx="75" cy="75" r="75"></circle>
-            <text font-family="AvenirNext-DemiBold, Avenir Next" font-size="120" font-weight="500" fill="#FFFFFF">
-                <tspan x="40.08" y="120">u</tspan>
-            </text>
-        </g>
-        <text id="uWork" font-family="AvenirNext-DemiBold, Avenir Next" font-size="150" font-weight="500" letter-spacing="4.16666667" fill="#DA552F">
-            <tspan x="163" y="123">u</tspan>
-            <tspan x="254.466667" y="123" font-family="AvenirNext-Bold, Avenir Next" font-weight="bold">W</tspan>
-            <tspan x="412.383333" y="123">ork</tspan>
+    <g id="logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <text id="zhaowork.ca" font-family="PingFangSC-Regular, PingFang SC" font-size="48" font-weight="normal" fill="#2C2929">
+            <tspan x="75" y="51">zhaowork</tspan>
+            <tspan x="287.304" y="51" font-size="36">.ca</tspan>
+        </text>
+        <rect id="矩形" fill="#5ED5C8" x="0" y="0" width="67" height="55" rx="8"></rect>
+        <text id="找" font-family="HanziPenSC-W3, HanziPen SC" font-size="48" font-weight="normal" fill="#FFFFFF">
+            <tspan x="8" y="45">找</tspan>
         </text>
     </g>
 </svg>
