@@ -34,7 +34,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/jds/Machine_Learning_Engineer', (req, res) => {
-  Jds.find({jobTitle:'Machine Learning Engineer'}).sort({
+  Jds.find({jobTitle:'machine learning engineer'}).sort({
       postDate: -1
     })
     .then((jds) => {
@@ -52,7 +52,7 @@ router.get('/jds/Machine_Learning_Engineer', (req, res) => {
 });
 
 router.get('/jds/Full_Stack_Developer', (req, res) => {
-  Jds.find({jobTitle:'Full Stack Developer'}).sort({
+  Jds.find({jobTitle:'full stack developer'}).sort({
       postDate: -1
     })
     .then((jds) => {
@@ -68,6 +68,51 @@ router.get('/jds/Full_Stack_Developer', (req, res) => {
       res.send('Sorry! Something went wrong.');
     });
 });
+
+router.get('/jds/Data_Scientist', (req, res) => {
+  Jds.find({jobTitle:'data scientist'}).sort({
+      postDate: -1
+    })
+    .then((jds) => {
+      // console.log(jds)
+      res.render('index', {
+        title: 'Home | uWork.ai',
+        path: '/',
+        jobTitle:'DS',
+        jds
+      });
+    })
+    .catch(() => {
+      res.send('Sorry! Something went wrong.');
+    });
+});
+
+router.get('/jds/Back_End_Developer', (req, res) => {
+  Jds.find({jobTitle:'back end developer'}).sort({
+      postDate: -1
+    })
+    .then((jds) => {
+      // console.log(jds)
+      res.render('index', {
+        title: 'Home | uWork.ai',
+        path: '/',
+        jobTitle:'BED',
+        jds
+      });
+    })
+    .catch(() => {
+      res.send('Sorry! Something went wrong.');
+    });
+});
+
+
+router.get('/course', (req, res) => {
+  res.render('course', {
+    title: 'Course | uWork.ai',
+    path: '/course'
+  });
+});
+
 
 router.get('/regrist', (req, res) => {
   res.render('form', {

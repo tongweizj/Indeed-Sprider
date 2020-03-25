@@ -1,10 +1,9 @@
-require('dotenv').config();
 require('./models/Registration');
 require('./models/jd');
 const app = require('./app');
 const mongoose = require('mongoose');
-
-mongoose.connect(process.env.DATABASE, {
+const url = 'mongodb://admin:123456@mongo:27017/db_jds'
+mongoose.connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   });

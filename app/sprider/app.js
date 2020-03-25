@@ -3,7 +3,7 @@ const hash = require('object-hash');
 const mongoose = require('mongoose');
 const dbHelper = require('./utils/dbhelper')
 const jdModel = require('./model/jd');
-const url = 'mongodb://cnbetaAdmin:123456@mongo:27017/cnbeta'
+const url = 'mongodb://admin:123456@mongo:27017/db_jds'
 mongoose.Promise = global.Promise;
 mongoose.connect(url, {
   useNewUrlParser: true,
@@ -18,21 +18,34 @@ mongoose.connection
   });
 
 
-roleList = ['Machine Learning Engineer', 'Full Stack Developer']
+roleList = ['machine learning engineer', 'full stack developer', 'data scientist', 'back end developer']
 roleList.forEach(job => {
   console.log(job)
   getJds(job)
+
 });
 
-function getJds(job) {
-  scrapList.query(getQuery(job)).then(res => {
+
+
+async function getJds(job) {
+  scrapList.query(getQuery(job)).then(async res => {
     res = res.map(item => {
       item.jobTitle = job; 
       item.hash = hash( item.company + item.title + item.summary )
       return item
     })
     console.log(res.length);
-    saveDB(res)
+    // saveDB(res)
+    let flag = await dbHelper.insertCollection(jdModel, res).catch(function (err) {
+      console.log('data insert falied');
+    });
+    if (!flag) {
+      console.log('news list save failed');
+      
+    } else {
+      console.log('list saved！total：' + res.length);
+      
+    }
   });
 
 }
@@ -46,7 +59,7 @@ function getQuery(job) {
     host: 'ca.indeed.com',
     query: `${job}`, //'Machine Learning Engineer',
     city: 'Toronto, ON',
-    radius: '30',
+    radius: '50',
     level: '',
     jobType: 'fulltime',
     maxAge: '7',
@@ -69,7 +82,10 @@ const saveDB = async (result) => {
   });
   if (!flag) {
     console.log('news list save failed');
+    
   } else {
     console.log('list saved！total：' + result.length);
+    
   }
+  return flag
 };

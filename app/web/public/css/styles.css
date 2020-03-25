@@ -12,8 +12,24 @@ a:visited { text-decoration: none;}
     height: 66px;
 }
 /* navbar end */
+.nav-ge{
+    display: block;
+    padding: .5rem 0.1rem;
+    color: gray;
+}
+.nav-link{
+    display: block;
+    padding: .5rem 0.5rem;
+}
+/* index jd-list nav start  */
+.js-list{
+    padding: 20px;
+    border-radius: 5px;
+}
+/* index jd-list nav end */
 
 /* jd-list index */
+
 .js-list{
     padding: 20px;
     border-radius: 5px;
@@ -56,8 +72,8 @@ a:visited { text-decoration: none;}
 }
 
 /* sidebar */
-.jd-sidebar {
-    margin-top: 32px;
+.index-sidebar {
+    margin-top: 45px;
 }
 
 .sidebar-ad2 img{
@@ -66,6 +82,37 @@ a:visited { text-decoration: none;}
 
 .sidebar-box-title {
     font-size: 1rem;
+}
+.sidebar-course-title {
+    font-size: 1rem;
+}
+.sidebar-course {
+    padding: 0;
+}
+
+.sidebar-share a{
+    border-bottom: 1px dashed #e8e8e8;
+    margin-bottom: 0px;
+    padding-top: 10px;
+}
+.sidebar-course-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 0;
+}
+p.course-text {
+    margin-bottom: 5px;
+    
+}
+.sidebar-box-title {
+    font-size: 1rem;
+}
+.sidebar-share{
+    margin-left: 0px;
+}
+.sidebar-share .row{
+    margin-left: 0px;
 }
 /* sidebar end */
 .bg-white{
