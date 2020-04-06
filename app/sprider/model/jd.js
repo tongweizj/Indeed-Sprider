@@ -1,23 +1,38 @@
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
 
-const jdModel = mongoose.Schema({
-    id: String,
+const jdSchema = mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
     title: String,
     summary: String,
-    url: {type:String,unique: true},
-    company: String,
-    location: String,
-    postDate: String,
-    salary: String,
-    isEasyApply: String,
-    content: String,
-    jobTitle:String,
-    hash:{type:String,unique: true}
+    url: {
+        type:String,
+        default: ''},
+    company: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Company'},
+    postDate: { 
+        type: Date,
+        default: Date.now},
+    salary: {
+        type:String,
+        default: ''},
+    isEasyApply: {
+        type:String,
+        default: ''},
+    content: {
+        type:String,
+        default: ''},
+    jobTitle:{
+        type:String,
+        default: ''},
+    hash:{
+        type:String,
+        unique: true}
 })
 
 // 以url为索引
-jdModel.index({ hash: 1 }, { unique: true, background: true, dropDups: true })
-jdModel.plugin(mongoosePaginate);
+jdSchema.index({ hash: 1 }, { unique: true, background: true, dropDups: true })
+jdSchema.plugin(mongoosePaginate);
 
-module.exports = mongoose.model('Jds', jdModel)
+module.exports = mongoose.model('Jds', jdSchema)

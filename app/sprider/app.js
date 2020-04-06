@@ -1,4 +1,4 @@
-const scrapList = require('./indeed/scrapList')
+
 const hash = require('object-hash');
 const mongoose = require('mongoose');
 const dbHelper = require('./utils/dbhelper')
@@ -18,7 +18,34 @@ mongoose.connection
   });
 
 
-roleList = ['machine learning engineer', 'full stack developer', 'data scientist', 'back end developer']
+// ------- start --------
+const jdListInit = require('./indeed/getJdList');
+
+const start = async() => {
+  let jdListRes = await jdListInit();
+  if (!jdListRes) {
+      logger.warn('news list update failed...');
+  } else {
+      logger.info('news list update succeed！');
+  }
+
+  // let articleContentRes = await articleContentInit();
+  // if (!articleContentRes) {
+  //     logger.warn('article content grab error...');
+  // } else {
+  //     logger.info('article content grab succeed！');
+  // }
+};
+
+if (typeof articleListInit === 'function') {
+  start();
+}
+setInterval(start, 600000); // 每十分钟运行一次
+
+// ------- end --------
+
+// roleList = ['machine learning engineer', 'full stack developer', 'data scientist', 'back end developer']
+roleList = ['data scientist']
 roleList.forEach(job => {
   console.log(job)
   getJds(job)
@@ -29,23 +56,36 @@ roleList.forEach(job => {
 
 async function getJds(job) {
   scrapList.query(getQuery(job)).then(async res => {
-    res = res.map(item => {
-      item.jobTitle = job; 
-      item.hash = hash( item.company + item.title + item.summary )
-      return item
-    })
-    console.log(res.length);
+    console.log(res.length)
+    res.forEach(function(item){
+      if(dbHelper.checkJd(item)){
+        item.jobTitle = job; 
+        item.hash = hash( item.company + item.title + item.summary )
+        // console.log(item)
+        if(dbHelper.insertOneJd(item)){
+          console.log('list saved')
+        } 
+      }
+  })
+
+    // res = res.map(item => {
+    //   item.jobTitle = job; 
+    //   item.hash = hash( item.company + item.title + item.summary )
+    //   return item
+    // })
+    // console.log(res);
+    // console.log(res.length);
     // saveDB(res)
-    let flag = await dbHelper.insertCollection(jdModel, res).catch(function (err) {
-      console.log('data insert falied');
-    });
-    if (!flag) {
-      console.log('news list save failed');
+    // let flag = await dbHelper.insertCollection(jdModel, res).catch(function (err) {
+    //   console.log('data insert falied');
+    // });
+    // if (!flag) {
+    //   console.log('news list save failed');
       
-    } else {
-      console.log('list saved！total：' + res.length);
+    // } else {
+    //   console.log('list saved！total：' + res.length);
       
-    }
+    // }
   });
 
 }
@@ -76,7 +116,7 @@ function getQuery(job) {
  * @returns {Promise.<void>}
  */
 const saveDB = async (result) => {
-  //console.log(result);
+  // console.log(result);
   let flag = await dbHelper.insertCollection(jdModel, result).catch(function (err) {
     console.log('data insert falied');
   });

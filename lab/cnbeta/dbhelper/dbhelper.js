@@ -1,5 +1,3 @@
-
-
 const {articleModel, articleDbModel} = require('../model/article');
 const logger = require('../config/log');
 
