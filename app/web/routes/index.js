@@ -22,7 +22,7 @@ router.get('/', (req, res) => {
     .then((jds) => {
       // console.log(jds)
       res.render('index', {
-        title: 'Home | uWork.ai',
+        title: 'Home | zhaoWork.ca',
         path: '/',
         jobTitle:'All',
         jds
@@ -40,7 +40,7 @@ router.get('/jds/Machine_Learning_Engineer', (req, res) => {
     .then((jds) => {
       // console.log(jds)
       res.render('index', {
-        title: 'Home | uWork.ai',
+        title: 'Home | zhaoWork.ca',
         path: '/',
         jobTitle:'ML',
         jds
@@ -58,7 +58,7 @@ router.get('/jds/Full_Stack_Developer', (req, res) => {
     .then((jds) => {
       // console.log(jds)
       res.render('index', {
-        title: 'Home | uWork.ai',
+        title: 'Home | zhaoWork.ca',
         path: '/',
         jobTitle:'FS',
         jds
@@ -76,7 +76,7 @@ router.get('/jds/Data_Scientist', (req, res) => {
     .then((jds) => {
       // console.log(jds)
       res.render('index', {
-        title: 'Home | uWork.ai',
+        title: 'Home | zhaoWork.ca',
         path: '/',
         jobTitle:'DS',
         jds
@@ -94,7 +94,7 @@ router.get('/jds/Back_End_Developer', (req, res) => {
     .then((jds) => {
       // console.log(jds)
       res.render('index', {
-        title: 'Home | uWork.ai',
+        title: 'Home | zhaoWork.ca',
         path: '/',
         jobTitle:'BED',
         jds
@@ -108,7 +108,7 @@ router.get('/jds/Back_End_Developer', (req, res) => {
 
 router.get('/course', (req, res) => {
   res.render('course', {
-    title: 'Course | uWork.ai',
+    title: 'Course | zhaoWork.ca',
     path: '/course'
   });
 });

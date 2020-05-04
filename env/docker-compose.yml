@@ -18,8 +18,9 @@ services:
     container_name: web_jobSprider
     volumes:
       - ../app/sprider:/workspace/sprider
-      - ../app/lab:/workspace/lab
       - ../app/web:/workspace/web
+      - ../app/api:/workspace/api
+      - ../lab:/workspace/lab      
     ports:
       - "3000:3000"
     tty: true
