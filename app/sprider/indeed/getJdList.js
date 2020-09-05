@@ -33,7 +33,6 @@ const jdListInit = async () => {
     })
 }
 
-
 const getJdListPage = () => {
     logger.info('getJdListPage starts...');
     // tmptitleList = ['data scientist'] //test
@@ -42,39 +41,35 @@ const getJdListPage = () => {
         //     saveDB(list, resolve)
         // })
         getJds(job)
-
-
     });
-    
 };
-
-
 
 async function getJds(job) {
     indeedQuery.query = job
     logger.info('function getJds starts...');
     // logger.info(indeedQuery);
-
-    
+    /// 抓取职位列表页
     scrapList.query(indeedQuery).then( (res) => {
         logger.info('getJds: %s:', res.length);
-
+        /// 从职位列表中，将每个一条数据
         forEachAsync(res,  async (item) =>{
             item.jobTitle = job;
+            /// 每一条记录，加一个 hash = uuid
             item.hash = hash(item.company + item.title + item.summary)
             // console.log(item)
 
-            // 取发布职位的公司信息
+            // 计算公司的uuid，取发布职位的公司信息
             const filter = {
                 hash: hash(item.company)
             };
-            
+            /// 创建公司信息
             const update = {
                 name: item.company,
                 location:item.location
             };
             logger.info(filter);
             logger.info(update);
+            /// 根据公司信息，去数据库里取公司id，或者新创建一个公司记录
             let tempItem = await queryCompany(item, filter, update)
             tmpArr.push(tempItem)
             // companyDbModel.findOneAndUpdate(filter, update, {upsert: true,new: true}, function(err, doc) {

@@ -1,4 +1,4 @@
-# Indeed Sprider Tool
+# ZhaoWork Sprider 项目说明
 
 ## 项目目录
 ```
@@ -14,6 +14,20 @@
 
 ```
 
+
+爬虫项目，专注在以下功能
+1. 抓取页面
+2. 分析页面
+
+
+## 操作守则
+
+### 抓取招聘信息
+
+```node
+node sprider.js
+
+```
 
 ## 参考项目
 
