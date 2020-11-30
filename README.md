@@ -42,13 +42,34 @@ Indeed Sprider，是我的练习项目。
 - 资讯
   - 资讯列表，没有详情页，全部跳转回原网站
 
-## 安装手册
+## 使用手册
+
+### web
+
+```barsh
+# 启动网站
+cd job_web
+pm2 start start.js
+
+```
+
+### sprider
 
 ```barsh
 # 更新抓取
 cd job_Sprider
 node app.js
 
+```
+
+### strapi
+API 调用账号
+zhaowork C2DcMUwN8JD3D6q
+
+http://174.138.38.105:2703/
+
+```barsh
+pm2 start server.js
 ```
 
 ## 参考项目
