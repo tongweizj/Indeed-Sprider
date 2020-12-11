@@ -1,9 +1,0 @@
-# directory
-db/
-logs/
-node_modules/
-.idea/
-public/
-
-# file
-package-lock.json

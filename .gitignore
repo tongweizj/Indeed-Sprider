@@ -1,6 +1,7 @@
 # DIY
 /services/
 /lab/
+reference/
 # Logs
 logs
 *.log
@@ -117,3 +118,4 @@ dist
 .yarn/build-state.yml
 .pnp.*
 .DS_Store
+
