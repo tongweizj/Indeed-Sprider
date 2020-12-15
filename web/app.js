@@ -1,17 +1,19 @@
-const express = require('express');
-const path = require('path');
-const routes = require('./routes/index');
-const admin = require('./routes/admin');
-const bodyParser = require('body-parser');
-const app = express();
-app.use(express.static('public'));
+'use strict'
 
-// app.set('views', path.join(__dirname, 'views'));
-
-app.set('view engine', 'ejs');
-app.set('views', 'views');
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/admin', admin);
-app.use('/', routes);
-module.exports = app;
+const mongoose = require('mongoose')
+const config = require('./config')
+mongoose.connect(config.database.testUrl, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+require('./models/company')
+require('./models/jd')
+mongoose.connection
+  .on('open', () => {
+    console.log('Mongoose connection open')
+  })
+  .on('error', err => {
+    console.log(`Connection error: ${err.message}`)
+  })
+const Scheduler = require('./controllers/scheduler')
+Scheduler.start()
