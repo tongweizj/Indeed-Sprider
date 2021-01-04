@@ -1,0 +1,120 @@
+body {
+    padding-top: 120px;
+    background: #f3f3f3;
+}
+a:link { text-decoration: none;}
+a:active { text-decoration:none}
+a:hover { text-decoration:none;} 
+a:visited { text-decoration: none;}
+/* navbar */
+.navbar-ui {
+    border-bottom: 1px solid #e8e8e8;
+    height: 66px;
+}
+/* navbar end */
+.nav-ge{
+    display: block;
+    padding: .5rem 0.1rem;
+    color: gray;
+}
+.nav-link{
+    display: block;
+    padding: .5rem 0.5rem;
+}
+/* index jd-list nav start  */
+.js-list{
+    padding: 20px;
+    border-radius: 5px;
+}
+/* index jd-list nav end */
+
+/* jd-list index */
+
+.js-list{
+    padding: 20px;
+    border-radius: 5px;
+}
+.jobs-title{
+    font-size: 1.25rem;
+}
+.list-group .row {
+    margin-left: 0px;
+}
+.jd-group-item:first-child {
+    border-top: 0px;
+    padding-top: 0px;
+}
+
+.jd-card {
+    border-top: 1px solid #e8e8e8;
+    margin-top: 20px;
+    padding-top: 20px;
+}
+.jd-card .card-body{
+    margin-left: -10px;
+    padding: 0;
+}
+.jd-card .card-title{
+    color: #000;
+    line-height: 24px;
+    font-weight: 600;
+    font-size: 16px;
+    margin: 0;
+}
+.jd-card p{
+    margin: 0 0 12px;
+    line-height: 20px;
+    color: #6f6f6f;
+    font-size: 13px;
+}
+.jd-card img.jd-company-logo{
+    width: 80px!important;
+}
+
+/* sidebar */
+.index-sidebar {
+    margin-top: 45px;
+}
+
+.sidebar-ad2 img{
+ width:100%;
+}
+
+.sidebar-box-title {
+    font-size: 1rem;
+}
+.sidebar-course-title {
+    font-size: 1rem;
+}
+.sidebar-course {
+    padding: 0;
+}
+
+.sidebar-share a{
+    border-bottom: 1px dashed #e8e8e8;
+    margin-bottom: 0px;
+    padding-top: 10px;
+}
+.sidebar-course-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 0;
+}
+p.course-text {
+    margin-bottom: 5px;
+    
+}
+.sidebar-box-title {
+    font-size: 1rem;
+}
+.sidebar-share{
+    margin-left: 0px;
+}
+.sidebar-share .row{
+    margin-left: 0px;
+}
+/* sidebar end */
+.bg-white{
+    background-color: #fff!important;
+}
