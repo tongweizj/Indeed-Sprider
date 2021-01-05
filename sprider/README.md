@@ -1,43 +1,35 @@
-# ZhaoWork Sprider 项目说明
+# README
 
-## 项目目录
-```
-.
-├── README.md
-├── app
-│   ├── sprider             --- indeed 蜘蛛，采集职位
-│   └── web                 --- 职位网站
-├── docker-compose.yml      --- docker管理
-├── services                --- docker关联文件夹
-│   └── mysql 
-└── source                  --- 资源类文件
+## TODO
+- [x] 关键词
+- [x] 下拉网页
+- [x] 解析 html
+- [x] 开始下一层网页的抓取
+- [x] 存储
 
-```
+## 依赖库
 
+### crawler
 
-爬虫项目，专注在以下功能
-1. 抓取页面
-2. 分析页面
+https://www.npmjs.com/package/crawler
 
+### cheerio
 
-## 操作守则
+### random-useragent
 
-### 抓取招聘信息
+https://www.npmjs.com/package/random-useragent
+用这个
 
-```node
-node sprider.js
+### winston
+
+https://www.npmjs.com/package/winston
+
 
 ```
+logger.log('info', 'log1.', { label: 'indeed' })
 
-## 参考项目
+logger.log('error', 'log2 task error %s', 'my string')
+logger.log('error', 'Important error: ', new Error('Error passed as meta'))
 
-##### indeed-scraper
-https://github.com/rynobax/indeed-scraper
-
-##### 这个代码，把indeed-scraper 做成express 的api
-https://github.com/fsanchezvilela/indeed-scrap-node/blob/master/app.js
-
-
-
-scrapList.js
-https://www.indeed.com/jobs?q=machine learning engineer
+logger.log('error', 'Important error: ', new Error('Error passed as meta'))
+```

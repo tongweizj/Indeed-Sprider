@@ -1,18 +1,17 @@
-const mongoose = require('mongoose');
-const jdDbModel = require('../model/jd');
-const companyDbModel = require('../model/company');
-const hash = require('object-hash');
+const mongoose = require('mongoose')
+const jdDbModel = require('./jd')
+const companyDbModel = require('./company')
+const hash = require('object-hash')
 // const logger = require('../config/log');
 
 class dbHelper {
-
   static async emptyCollection(Model) {
-    let flag = true;
-    let res = await Model.collection.remove();
+    let flag = true
+    let res = await Model.collection.remove()
     if (!res) {
-      flag = false;
+      flag = false
     }
-    return flag;
+    return flag
   }
   /* emptyCollection end */
 
@@ -21,7 +20,7 @@ class dbHelper {
    * 输入：
    * 1. jdInfo 住去简历的json
    * 2. callback insertJd()
-   * 
+   *
    * 处理：
    * 1. 检查这个jd是否已经存在，存在就忽略
    * 2. 检查公司是否存在，如果没有就创建，有就获得公司的id
@@ -31,12 +30,12 @@ class dbHelper {
   static saveJd(jdInfo, callback) {
     let jdCount = dbHelper.checkJd(jdInfo)
     let err = true
-    if (jdCount !==0) {
-      err=false
+    if (jdCount !== 0) {
+      err = false
     }
-    let companyModel = dbHelper.insertCompany(jdInfo) 
+    let companyModel = dbHelper.insertCompany(jdInfo)
     callback(err, jdInfo, companyModel)
-  } 
+  }
   /**
    * insertOneJd
    * 输入：一个jd item的json文件
@@ -57,28 +56,28 @@ class dbHelper {
     // let companyID = await dbHelper.insertCompany(item)
     // console.log("line:35");
     // console.log(companyID);
-    let flag = true;
+    let flag = true
     let oneJd = new jdDbModel({
-      _id:      new mongoose.Types.ObjectId(),
-      url:      item.url,
-      company:  companyModel._id,
+      _id: new mongoose.Types.ObjectId(),
+      url: item.url,
+      company: companyModel._id,
       postDate: item.postDate,
-      salary:   item.salary,
+      salary: item.salary,
       isEasyApply: item.isEasyApply,
       jobTitle: item.jobTitle,
-      hash:     item.hash
+      hash: item.hash
     })
     oneJd.save(function (err) {
-      if (err) return console.error(err);
+      if (err) return console.error(err)
       // if (err) {
-      //   console.log(err); 
+      //   console.log(err);
       //   return
       // }
-      console.log("line:48");
-      console.log(oneJd.company);
-      flag = false;
+      console.log('line:48')
+      console.log(oneJd.company)
+      flag = false
     })
-    return flag;
+    return flag
   }
 
   /**
@@ -91,34 +90,37 @@ class dbHelper {
    */
 
   static insertCompany(jdInfo) {
-    console.log('line:82');
+    console.log('line:82')
     let company_hash = hash(jdInfo.company)
-    companyDbModel.find({
-      hash: company_hash
-    }, function (err, docs) {
-      if (err) {
-        console.log(err);
-        return {};
+    companyDbModel.find(
+      {
+        hash: company_hash
+      },
+      function (err, docs) {
+        if (err) {
+          console.log(err)
+          return {}
+        }
+        // console.log(docs)
+        if (docs.length === 0) {
+          console.log('no company,now insert')
+          let oneCompany = new companyDbModel({
+            _id: new mongoose.Types.ObjectId(),
+            name: item.company,
+            hash: company_hash
+          })
+          oneCompany.save(function (err) {
+            if (err) {
+              console.log(err)
+              return dbHelper.checkCompany(item.company)
+            }
+            // console.log(oneCompany._id);
+            return oneCompany
+          })
+        }
+        return docs
       }
-      // console.log(docs)
-      if (docs.length === 0) {
-        console.log('no company,now insert')
-        let oneCompany = new companyDbModel({
-          _id: new mongoose.Types.ObjectId(),
-          name: item.company,
-          hash: company_hash
-        })
-        oneCompany.save(function (err) {
-          if (err) {
-            console.log(err); 
-            return dbHelper.checkCompany(item.company)
-          }
-          // console.log(oneCompany._id);
-          return oneCompany
-        })
-      }
-      return docs
-    })
+    )
   }
   /**
    * checkJd
@@ -130,16 +132,19 @@ class dbHelper {
    */
   static checkJd(item) {
     // console.log(item)
-    
-    jdDbModel.find({
-      hash: item.hash
-    }, function (err, docs) {
-      if (err) {
-        console.log(err);
-        return false
+
+    jdDbModel.find(
+      {
+        hash: item.hash
+      },
+      function (err, docs) {
+        if (err) {
+          console.log(err)
+          return false
+        }
+        return docs.length
       }
-      return docs.length
-    })
+    )
   }
 
   /**
@@ -153,68 +158,75 @@ class dbHelper {
    * False： 存在相同jd
    */
   static async checkCompany(comName) {
-
-    companyDbModel.find({
-      name: comName
-    }, function (err, docs) {
-      if (err) {
-        console.log(err);
-        return {};
+    companyDbModel.find(
+      {
+        name: comName
+      },
+      function (err, docs) {
+        if (err) {
+          console.log(err)
+          return {}
+        }
+        if (docs.length === 0) {
+          return {}
+        }
+        return docs._id
       }
-      if (docs.length === 0) {
-        return {}
-      }
-      return docs._id
-    })
+    )
   }
   /**
    * insertCollection
    * 输入：一组 jd item的参数
    * 处理：
-   * 
+   *
    * 返回：
    */
   static async insertCollection(Model, insertList) {
-    let flag = true;
+    let flag = true
     // let res = await Model.collection.insert(insertList);
     // if (!res) {
     //     flag = false;
     // }
-    await Model.collection.insertMany(insertList, {
+    await Model.collection
+      .insertMany(insertList, {
         ordered: false
       })
       .then()
-      .catch(err => { //捕捉插入重复抛出的异常
+      .catch(err => {
+        //捕捉插入重复抛出的异常
         console.log(err.toString())
         flag = false
-      });
-    return flag;
+      })
+    return flag
   }
 
   /**
    * updateCollection
    * 输入：一组 jd item的参数
    * 处理：
-   * 
+   *
    * 返回：
    */
   static async updateCollection(Modle, doc) {
-    let flag = true;
-    let updateRes = await Modle.update({
-      sid: doc.sid
-    }, doc);
+    let flag = true
+    let updateRes = await Modle.update(
+      {
+        sid: doc.sid
+      },
+      doc
+    )
     if (!updateRes) {
-      logger.error('保存文章内容出错，文章sid：' + doc.sid);
-      flag = false;
+      logger.error('保存文章内容出错，文章sid：' + doc.sid)
+      flag = false
     }
-    return flag;
+    return flag
   }
 
   /**
    * queryDocList
    * 输入：一组 jd item的参数
    * 处理：
-   * 
+   *
    * 返回：
    */
   static async queryDocList(Model) {
@@ -222,74 +234,75 @@ class dbHelper {
       content: {
         $exists: false
       }
-    }).catch((err) => {
-      logger.error('查询文章列表出错');
-      logger.error(err);
-    });
-    return list;
+    }).catch(err => {
+      logger.error('查询文章列表出错')
+      logger.error(err)
+    })
+    return list
   }
 
   /**
    * queryArticleList
    * 输入：一组 jd item的参数
    * 处理：
-   * 
+   *
    * 返回：
    */
   static async queryArticleList(params) {
-    const {
-      select,
-      size,
-      page
-    } = params;
-    let res = null;
-    await jdDbModel.paginate({}, {
-      select: select,
-      page: page,
-      limit: size,
-      sort: {
-        sid: -1
+    const { select, size, page } = params
+    let res = null
+    await jdDbModel.paginate(
+      {},
+      {
+        select: select,
+        page: page,
+        limit: size,
+        sort: {
+          sid: -1
+        }
       },
-    }, (err, result) => {
-      if (!err) {
-        let resClone = JSON.parse(JSON.stringify(result));
-        res = {
-          pagination: {
-            total: resClone.total,
-            current_page: resClone.page,
-            total_page: resClone.pages,
-            page_size: resClone.limit
-          },
-          list: resClone.docs
-        };
-      } else {
-        console.log(err);
+      (err, result) => {
+        if (!err) {
+          let resClone = JSON.parse(JSON.stringify(result))
+          res = {
+            pagination: {
+              total: resClone.total,
+              current_page: resClone.page,
+              total_page: resClone.pages,
+              page_size: resClone.limit
+            },
+            list: resClone.docs
+          }
+        } else {
+          console.log(err)
+        }
       }
-    });
-    return res;
+    )
+    return res
   }
 
   /**
    * queryArticleList
    * 输入：一组 jd item的参数
    * 处理：
-   * 
+   *
    * 返回：
    */
   static async queryArticle(params) {
-    const {
-      sid
-    } = params;
-    let res = await jdDbModel.find({
-      sid: sid
-    }, (err, doc) => {
-      if (err) {
-        console.log(err);
+    const { sid } = params
+    let res = await jdDbModel.find(
+      {
+        sid: sid
+      },
+      (err, doc) => {
+        if (err) {
+          console.log(err)
+        }
       }
-    });
-    if (!res[0].sid) res = null;
-    return res;
+    )
+    if (!res[0].sid) res = null
+    return res
   }
 }
 
-module.exports = dbHelper;
+module.exports = dbHelper
