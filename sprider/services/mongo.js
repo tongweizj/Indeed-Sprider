@@ -1,10 +1,11 @@
 const async = require('async')
 const config = require('../config')
+const dbURi = config.database.url
 const mongoose = require('mongoose')
 const JD = require('./update-jd')
 const Company = require('./update-company')
 
-mongoose.connect(config.database.testUrl, {
+mongoose.connect(dbURi, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })

@@ -2,7 +2,7 @@
 
 module.exports = {
   database: {
-    url: 'mongodb://ggfadmin:12345678@192.168.0.100:27017/ggf',
+    url: 'mongodb://admin:123456@mongo:27017/db_jds',
     testUrl: 'mongodb://admin:admin123456@192.168.0.100:27017/zhaowork'
   },
   api: {

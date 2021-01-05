@@ -10,5 +10,5 @@ const scheduleCronstyle = () => {
     spider()
   })
 }
-
+spider()
 scheduleCronstyle()
