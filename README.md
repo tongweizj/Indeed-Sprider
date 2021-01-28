@@ -61,16 +61,6 @@ node app.js
 
 ```
 
-### strapi
-API 调用账号
-zhaowork C2DcMUwN8JD3D6q
-
-http://174.138.38.105:2703/
-
-```barsh
-pm2 start server.js
-```
-
 ## 参考项目
 
 ### indeed-scraper

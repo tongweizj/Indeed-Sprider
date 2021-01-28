@@ -2,7 +2,7 @@ class UrlSplice {
   static indeedListPage(task) {
     // 构造 Uri
     let q = 'https://www.indeed.ca/jobs'
-    q += '?q=' + task.uri
+    q += '?q=title%3A' + task.uri
     q += '&l=' + 'Toronto%2C+ON'
     q += '&radius=' + '50'
     q += '&fromage=' + '7' // 最近 7 天
